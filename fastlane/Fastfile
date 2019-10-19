@@ -64,6 +64,7 @@ desc "Submit a new bundle to Play store Alpha"
 
   desc "notes"
   lane :donotes do 
+   sh "git checkout master"
     notes = changelog_from_git_commits(
       between: [last_git_tag, "HEAD"],  # Optional, lets you specify a revision/tag range between which to collect commit info
       date_format: "short",# Optional, lets you provide an additional date format to dates within the pretty-formatted string
