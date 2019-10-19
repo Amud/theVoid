@@ -103,7 +103,6 @@ lane :code_freeze do |options|
   echo "git checkout -b "+release_branch
   echo "git push origin "+release_branch
 
-  echo "release branch "+release_branch+" created"
 
 end
 
