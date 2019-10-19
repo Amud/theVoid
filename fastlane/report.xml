@@ -5,32 +5,32 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.00388">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.005573">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: ensure_git_status_clean" time="0.025925">
+      <testcase classname="fastlane.lanes" name="1: ensure_git_status_clean" time="0.025408">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: echo sh git checkout develop" time="0.004811">
+      <testcase classname="fastlane.lanes" name="2: echo git checkout develop" time="0.004718">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: echo git pull --rebase" time="0.004803">
+      <testcase classname="fastlane.lanes" name="3: echo git pull --rebase" time="0.004809">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: echo git checkout -b release-02" time="0.004948">
+      <testcase classname="fastlane.lanes" name="4: echo git checkout -b release-02" time="0.005332">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: echo git push origin release-02" time="0.007771">
+      <testcase classname="fastlane.lanes" name="5: echo git push origin release-02" time="0.006069">
         
       </testcase>
     
