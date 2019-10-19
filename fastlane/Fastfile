@@ -1,0 +1,68 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  
+
+
+
+# sample : fastlane rollout track:beta percent:100
+  desc "Submit a new bundle to Play store Alpha"
+  lane :rollout do |options|
+
+    default_track = "beta"
+    default_percent = 0.05
+
+    gradle(task: "clean bundleRelease")
+    percent = options[:percent] ? options[:percent].to_f/100 : default_percent
+    track = options[:track] ? options[:track] : default_track
+    upload_to_play_store(track: track,  rollout: percent.to_s, skip_upload_images: true , skip_upload_screenshots: true)
+
+  end
+
+
+
+# sample1 : fastlane promot from:beta to:production 
+# sample2 : fastlane promot 
+desc "Submit a new bundle to Play store Alpha"
+  lane :promot do |options|
+    default_track_from = "beta"
+    default_track_to = "production"
+    upload_path = "../mapping"
+
+    track_from = options[:from] 
+    trrack_to =  options[:to] 
+
+    track_from = track_from ? track_from : default_track_from
+    trrack_to = trrack_to ? trrack_to : default_track_to
+    upload_to_play_store(track: track_from, track_promote_to: trrack_to, skip_upload_images: true , skip_upload_screenshots: true, mapping: upload_path)
+  end
+
+
+
+# sample : fastlane rollout track:beta percent:100
+  desc "Submit a new bundle to Play store Alpha"
+  lane :assemble do 
+    upload_path = "/Users/amud/Documents/supply"
+    gradle(task: "clean bundleRelease")
+  
+  end
+
+
+
+
+end
