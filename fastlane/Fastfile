@@ -64,47 +64,57 @@ desc "Submit a new bundle to Play store Alpha"
   end
 
 
-#sample : todo
-  desc "notes"
-  lane :notes do |options|
-    version = options[:version]
-    if version == nil 
-      raise "Version can't be null".red
-    end
-
-    branch = branch_pattern+""+version
-    sh "echo "+branch
- 
-    
-
-    # sh "git checkout master"
-    notes = changelog_from_git_commits(
-      between: ["master", "release-01"],  # Optional, lets you specify a revision/tag range between which to collect commit info
-      date_format: "short",# Optional, lets you provide an additional date format to dates within the pretty-formatted string
-      match_lightweight_tag: false  # Optional, lets you ignore lightweight (non-annotated) tags when searching for the last tag
-    )
-    add_git_tag( message: notes,tag: "v6")
-  end
 
 
+# sample fastlane code_freeze version:5.2.12
 desc "code freeze"
 lane :code_freeze do |options|
   version = options[:version]
     if version == nil 
       raise "Version can't be null".red
     end
-
-
-    release_branch = branch_pattern+""+version
-    
+  release_branch = branch_pattern+""+version  
   ensure_git_status_clean
+
   sh "git checkout "+develop_branch
   sh "git pull --rebase"
   sh "git checkout -b "+release_branch
   sh "git push origin "+release_branch
   sh "echo release "+release_branch+" is created, please raise your all PR against it"
-
-
 end
+
+
+
+#sample : todo
+  desc "notes"
+  lane :notes do |options|
+
+    ensure_git_status_clean
+    version = options[:version]
+    if version == nil 
+      raise "Version can't be null".red
+    end
+
+    branch = branch_pattern+""+version
+
+    sh "git checkout "+branch
+    tag = "v"+version
+
+    
+
+    # sh "git checkout master"
+    notes = changelog_from_git_commits(
+      between: [last_git_tag, "HEAD"], 
+      date_format: "short",
+      pretty: "- (%ae) %s",
+      match_lightweight_tag: false 
+    )
+
+    add_git_tag( message: notes,tag: tag)
+    sh "git push origin "+tag
+
+    sh "echo tag "+tag+" is created at origin"
+  end
+
 
 end
