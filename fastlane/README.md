@@ -31,6 +31,11 @@ Submit a new bundle to Play store Alpha
 fastlane android assemble
 ```
 Submit a new bundle to Play store Alpha
+### android beta
+```
+fastlane android beta
+```
+
 
 ----
 
