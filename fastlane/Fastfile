@@ -102,6 +102,7 @@ lane :code_freeze do |options|
   sh "git pull --rebase"
   sh "git checkout -b "+release_branch
   sh "git push origin "+release_branch
+  sh "echo release "+release_branch+" is created, please raise your all PR against it"
 
 
 end
