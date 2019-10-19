@@ -16,6 +16,9 @@
 default_platform(:android)
 
 platform :android do
+
+  branch_pattern = "release-"
+  develop_branch = "develop"
   
 
 
@@ -61,18 +64,45 @@ desc "Submit a new bundle to Play store Alpha"
   end
 
 
-
+#sample : todo
   desc "notes"
   lane :notes do |options|
-  # sh "git checkout master"
+    version = options[:version]
+    if version == nil 
+      raise "Version can't be null".red
+    end
+
+    branch = branch_pattern+""+version
+    sh "echo "+branch
+ 
+    
+
+    # sh "git checkout master"
     notes = changelog_from_git_commits(
       between: ["master", "release-01"],  # Optional, lets you specify a revision/tag range between which to collect commit info
       date_format: "short",# Optional, lets you provide an additional date format to dates within the pretty-formatted string
       match_lightweight_tag: false  # Optional, lets you ignore lightweight (non-annotated) tags when searching for the last tag
     )
     add_git_tag( message: notes,tag: "v6")
-
   end
 
+
+desc "code freeze"
+lane :code_freeze do |options|
+  version = options[:version]
+    if version == nil 
+      raise "Version can't be null".red
+    end
+
+
+    release_branch = branch_pattern+""+version
+    
+  ensure_git_status_clean
+  echo "git checkout "+develop
+  echo "git pull --rebase"
+  echo "git checkout -b "+release_branch
+  echo "git push origin "+release_branch
+
+  echo "release branch "+release_branch+" created"
 
 end
