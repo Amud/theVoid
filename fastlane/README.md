@@ -31,9 +31,9 @@ Submit a new bundle to Play store Alpha
 fastlane android assemble
 ```
 Submit a new bundle to Play store Alpha
-### android donotes
+### android notes
 ```
-fastlane android donotes
+fastlane android notes
 ```
 notes
 
