@@ -36,6 +36,11 @@ Submit a new bundle to Play store Alpha
 fastlane android notes
 ```
 notes
+### android code_freeze
+```
+fastlane android code_freeze
+```
+code freeze
 
 ----
 
