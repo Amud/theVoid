@@ -99,9 +99,9 @@ lane :code_freeze do |options|
     
   ensure_git_status_clean
   sh "git checkout master"
- # sh "echo git pull --rebase"
- # sh "echo git checkout -b "+release_branch
- # sh "echo git push origin "+release_branch
+  sh "git pull --rebase"
+  sh "git checkout -b "+release_branch
+  sh "git push origin "+release_branch
 
 
 end
