@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "38804712337",
+    "firebase_url": "https://void-92bec.firebaseio.com",
+    "project_id": "void-92bec",
+    "storage_bucket": "void-92bec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38804712337:android:39bd4fc6dab9a86853c830",
+        "android_client_info": {
+          "package_name": "com.amud.thevoid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "38804712337-pnr2ajvfndhr80u6tvqods6gegqnnn26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGg4EMBtQp-9KZgSzebFd0BI4Js2DWoHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "38804712337-pnr2ajvfndhr80u6tvqods6gegqnnn26.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
