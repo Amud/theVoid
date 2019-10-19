@@ -5,17 +5,17 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.004504">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.004482">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: ensure_git_status_clean" time="0.025538">
+      <testcase classname="fastlane.lanes" name="1: ensure_git_status_clean" time="0.026862">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: echo sh git checkout develop" time="0.004456">
+      <testcase classname="fastlane.lanes" name="2: echo git checkout develop" time="0.005312">
         
       </testcase>
     
