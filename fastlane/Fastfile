@@ -98,7 +98,7 @@ lane :code_freeze do |options|
     release_branch = branch_pattern+""+version
     
   ensure_git_status_clean
-  sh "echo sh git checkout "+develop_branch
+  sh "echo git checkout "+develop_branch
   sh "echo git pull --rebase"
   sh "echo git checkout -b "+release_branch
   sh "echo git push origin "+release_branch
