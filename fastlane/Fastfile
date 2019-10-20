@@ -37,7 +37,7 @@ lane :rollout do |options|
   percent = options[:percent] ? options[:percent].to_f/100 : default_percent
   upload_to_play_store(track: track,  rollout: percent.to_s, skip_upload_images: true , skip_upload_screenshots: true)
   collect_assets(version:version)
-  release_announce(track:track ,percent :percent ,  version:version)
+  release_announce(track:track ,percent:percent , version:version)
 end
 
 
