@@ -153,8 +153,8 @@ ensure_git_status_clean
   message = message+ "Author : <a href='"+author_url+"'>"+author+"</a>"+"<br/>"
   message = message + "Email :" + author_email+ "<br/>"
   message = message+ "Commit : <a href='"+commit_url+"'>"+short_hash+"</a>"+"<br/>"
-  message = message+ "Tag : <a href='"+tag_url+"'>"+tag_url+"</a>"+"<br/>"
-  message = message + "release notes : "+ notes 
+  message = message+ "Tag : <a href='"+tag_url+"'>"+tag+"</a>"+"<br/>"
+  message = message + "Release notes : "+ notes 
 
   notification(subtitle: "Finished Building", message: message, sound: "Glass") 
   send_mail(content:message)

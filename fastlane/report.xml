@@ -5,14 +5,57 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.003962">
+      <testcase classname="fastlane.lanes" name="00: default_platform" time="0.005506">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: ensure_git_status_clean" time="0.028054">
+      <testcase classname="fastlane.lanes" name="01: ensure_git_status_clean" time="0.028964">
         
-          <failure message="/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/actions/actions_helper.rb:48:in `execute_action'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:235:in `block in execute_action'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:227:in `chdir'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:227:in `execute_action'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:157:in `trigger_action_by_name'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/fast_file.rb:159:in `method_missing'&#10;Fastfile:126:in `block (2 levels) in parsing_binding'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/lane.rb:33:in `call'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:45:in `chdir'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:45:in `execute'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/lane_manager.rb:56:in `cruise_lane'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/command_line_handler.rb:36:in `handle'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/commands_generator.rb:108:in `block (2 levels) in run'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/commander-fastlane-4.4.6/lib/commander/command.rb:178:in `call'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/commander-fastlane-4.4.6/lib/commander/command.rb:153:in `run'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/commander-fastlane-4.4.6/lib/commander/runner.rb:476:in `run_active_command'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:76:in `run!'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/commander-fastlane-4.4.6/lib/commander/delegates.rb:15:in `run!'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/commands_generator.rb:349:in `run'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/commands_generator.rb:41:in `start'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/cli_tools_distributor.rb:119:in `take_off'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/bin/fastlane:23:in `&lt;top (required)&gt;'&#10;/usr/local/bin/fastlane:23:in `load'&#10;/usr/local/bin/fastlane:23:in `&lt;main&gt;'&#10;&#10;Git repository is dirty! Please ensure the repo is in a clean state by committing/stashing/discarding all changes first." />
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="02: last_git_tag" time="0.055132">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="03: changelog_from_git_commits" time="0.038848">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="04: add_git_tag" time="0.035897">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="05: git push origin v5.2.14" time="4.755068">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="06: git_branch" time="0.030447">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="07: last_git_tag" time="0.075673">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="08: last_git_commit" time="0.153971">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: notification" time="0.255386">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: Switch to android send_mail lane" time="0.001474">
         
       </testcase>
     
