@@ -146,7 +146,7 @@ lane :release_announce do |options|
 
   message = "Release :"+version +"\n"
   message = message +"Track "+track +"\n"
-  message = message + "Percent : "+percent+"\n"
+  message = message + "Percent : "+percent.to_s+"\n"
   message = message + "Branch :"+ branch +"\n"
   message = message + "Author :"+ author + "\n"
   message = message + "Email :" + author_email+"\n"
@@ -187,7 +187,6 @@ lane :collect_assets do |options|
   if version == nil 
     raise "track/percent/Version, can't be null".red
   end
-  gradle(task: "clean bundleRelease")
   aab_file_path = lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
   mapping_file_path = "../app/build/outputs/mapping/production/release/mapping.txt"
   directory_path = "../build/v"+version
