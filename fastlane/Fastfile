@@ -20,6 +20,7 @@ platform :android do
   branch_pattern = "release-"
   develop_branch = "develop"
   aws_url = "https://stg-capp-cicd.s3-ap-southeast-1.amazonaws.com/cicd-pipeline/"
+  git_base_url = "https://github.com/Amud/theVoid/"
   
 
 
@@ -107,23 +108,7 @@ end
 #sample : fastlane notes version:05
 desc "release notes"
 lane :notes do |options|
-  ensure_git_status_clean
-  version = options[:version]
-  if version == nil 
-    raise "Version can't be null".red
-  end
-  branch = branch_pattern+""+version
-  sh "git checkout "+branch
-  tag = "v"+version
-  notes = changelog_from_git_commits(
-    between: [last_git_tag, "HEAD"], 
-    date_format: "short",
-    pretty: "- (%ae) %s",
-    match_lightweight_tag: false 
-    )
-  add_git_tag( message: notes,tag: tag)
-  sh "git push origin "+tag
-  sh "echo tag "+tag+" is created at origin"
+  
 end
 
 
@@ -137,6 +122,19 @@ lane :release_announce do |options|
   if version == nil  || track == nil || percent == nil
     raise "track/percent/Version, can't be null".red
   end
+
+ensure_git_status_clean
+  
+  tag = "v"+version
+  notes = changelog_from_git_commits(
+    between: [last_git_tag, "HEAD"], 
+    date_format: "short",
+    pretty: "- (%ae) %s",
+    match_lightweight_tag: false 
+    )
+  add_git_tag( message: notes,tag: tag)
+  sh "git push origin "+tag
+
   branch = git_branch
   tag = last_git_tag
   commit = last_git_commit
@@ -144,15 +142,24 @@ lane :release_announce do |options|
   author_email = commit[:author_email] # email of the author of the commit
   short_hash = commit[:abbreviated_commit_hash] # short sha of commit
 
-  message = "Release :"+version +"\n"
-  message = message +"Track "+track +"\n"
-  message = message + "Percent : "+percent.to_s+"\n"
-  message = message + "Branch :"+ branch +"\n"
-  message = message + "Author :"+ author + "\n"
-  message = message + "Email :" + author_email+"\n"
-  message = message + "Commit :"+ short_hash +"\n"
+  branch_url = git_base_url+"tree/"+branch
+  tag_url = git_base_url+ "releases/"+tag
+  commit_url = git_base_url+"commit/"+short_hash
+  author_url  = git_base_url + "commits?author="+author
+
+  message = "Release : "+version+ "<br/>"
+  message = message +"Track "+track + "<br/>"
+  message = message + "Percent : "+percent.to_s+ "<br/>"
+  message = message + "Branch :"+ branch + "<br/>"
+  message = message+ "<a href='"+branch_url+"'>Branch</a>"+"<br/>"
+  message = message+ "<a href='"+author_url+"'>Author</a>"+"<br/>"
+  message = message + "Email :" + author_email+ "<br/>"
+  message = message+ "<a href='"+commit_url+"'>Commit</a>"+"<br/>"
+  message = message+ "<a href='"+tag_url+"'>tag</a>"+"<br/>"
+  message = message + "release notes : "+ notes 
+
   notification(subtitle: "Finished Building", message: message, sound: "Glass") 
-  send_mail(message)
+  send_mail(content:message)
 end
 
 
@@ -174,7 +181,7 @@ lane :promot_announce do |options|
   message = message + "by Author :"+ author + "\n"
   message = message + "Email :" + author_email+"\n"
   message = message + "Link : "+s3+"v"+version+".zip"
-  send_mail(message)
+  send_mail(content:message)
 end
 
 
@@ -229,7 +236,6 @@ lane :send_mail do |options|
   request["Content-Length"] = '292'
   request["Connection"] = 'keep-alive'
   body =  "{\n  \"to\": [\n    \"ankur.mudgal@oyorooms.com\"\n  ],\n  \"from\": \"no-reply@oyorooms.com\",\n  \"contentType\": \"text/html\",\n  \"contentData\": \""+content+"\",\n  \"subject\": \"subject\",\n  \"category\": \"no cat\",\n  \"client\": \"MUNSHI_MAIL_SERVICE\",\n  \"eId\": "+random.to_s+"\n}"
-  sh "echo body"
   request.body = body
   response = http.request(request)
   puts response.read_body
