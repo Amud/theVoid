@@ -1555,7 +1555,6 @@ kotlin.jvm.internal.ByteCompanionObject
 kotlin.random.PlatformRandomKt
 kotlin.text.TypeAliasesKt
 androidx.vectordrawable.R$id
-androidx.core.database.sqlite.SQLiteDatabaseKt
 androidx.appcompat.widget.SearchView
     public boolean isIconfiedByDefault()
     public boolean isSubmitButtonEnabled()
@@ -1563,6 +1562,7 @@ androidx.appcompat.widget.SearchView
     static final boolean DBG
     static final java.lang.String LOG_TAG
     private static final java.lang.String IME_OPTION_NO_MICROPHONE
+androidx.core.database.sqlite.SQLiteDatabaseKt
 androidx.appcompat.resources.R$attr
 kotlin.sequences.SequencesKt__SequencesJVMKt
 androidx.customview.widget.FocusStrategy

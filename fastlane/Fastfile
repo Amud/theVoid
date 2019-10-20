@@ -124,8 +124,9 @@ lane :release_announce do |options|
     raise "track/percent/Version, can't be null".red
   end
 
-ensure_git_status_clean
-  
+#ensure_git_status_clean
+  sh "git commit -m \"automatically commits\""
+
   tag = "v"+version
   notes = changelog_from_git_commits(
     between: [last_git_tag, "HEAD"], 
