@@ -128,7 +128,7 @@ ensure_git_status_clean
   tag = "v"+version
   notes = changelog_from_git_commits(
     between: [last_git_tag, "HEAD"], 
-    pretty: "- %s \n",
+    pretty: "- %s",
     date_format: "short",
     match_lightweight_tag: false 
     )
