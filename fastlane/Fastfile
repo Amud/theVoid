@@ -129,7 +129,6 @@ ensure_git_status_clean
   notes = changelog_from_git_commits(
     between: [last_git_tag, "HEAD"], 
     date_format: "short",
-    pretty: "- (%ae) %s",
     match_lightweight_tag: false 
     )
   add_git_tag( message: notes,tag: tag)
@@ -148,14 +147,13 @@ ensure_git_status_clean
   author_url  = git_base_url + "commits?author="+author
 
   message = "Release : "+version+ "<br/>"
-  message = message +"Track "+track + "<br/>"
+  message = message +"Track : "+track + "<br/>"
   message = message + "Percent : "+percent.to_s+ "<br/>"
-  message = message + "Branch :"+ branch + "<br/>"
-  message = message+ "<a href='"+branch_url+"'>Branch</a>"+"<br/>"
-  message = message+ "<a href='"+author_url+"'>Author</a>"+"<br/>"
+  message = message+ "Branch : <a href='"+branch_url+"'>"+branch+"</a>"+"<br/>"
+  message = message+ "Author : <a href='"+author_url+"'>"+author+"</a>"+"<br/>"
   message = message + "Email :" + author_email+ "<br/>"
-  message = message+ "<a href='"+commit_url+"'>Commit</a>"+"<br/>"
-  message = message+ "<a href='"+tag_url+"'>tag</a>"+"<br/>"
+  message = message+ "Commit : <a href='"+commit_url+"'>"+short_hash+"</a>"+"<br/>"
+  message = message+ "Tag : <a href='"+tag_url+"'>"+tag_url+"</a>"+"<br/>"
   message = message + "release notes : "+ notes 
 
   notification(subtitle: "Finished Building", message: message, sound: "Glass") 
