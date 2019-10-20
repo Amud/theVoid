@@ -147,6 +147,7 @@ ensure_git_status_clean
   tag_url = git_base_url+ "releases/"+tag
   commit_url = git_base_url+"commit/"+short_hash
   author_url  = git_base_url + "commits?author="+author
+  s3_link = aws_url+"/"+version+".zip"
 
   message = "Release : "+version+ "<br/>"
   message = message +"Track : "+track + "<br/>"
@@ -156,7 +157,8 @@ ensure_git_status_clean
   message = message + "Email :" + author_email+ "<br/>"
   message = message+ "Commit : <a href='"+commit_url+"'>"+short_hash+"</a>"+"<br/>"
   message = message+ "Tag : <a href='"+tag_url+"'>"+tag+"</a>"+"<br/>"
-  message = message + "Release notes : "+ notes 
+  message = message + "Release notes : "+ notes+"<br/>"
+  message = message + "Assets link : "+ s3_link
 
   notification(subtitle: "Finished Building", message: message, sound: "Glass") 
   send_mail(content:message)

@@ -5,57 +5,27 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: default_platform" time="0.007291">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.008888">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: ensure_git_status_clean" time="0.032755">
+      <testcase classname="fastlane.lanes" name="1: gradle" time="11.284107">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: last_git_tag" time="0.069583">
+      <testcase classname="fastlane.lanes" name="2: upload_to_play_store" time="40.277354">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: changelog_from_git_commits" time="0.03722">
+      <testcase classname="fastlane.lanes" name="3: Switch to android collect_assets lane" time="0.001435">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: add_git_tag" time="0.035386">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="05: git push origin v5.2.17" time="4.622036">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="06: git_branch" time="0.035131">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="07: last_git_tag" time="0.131572">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="08: last_git_commit" time="0.148721">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="09: notification" time="0.218412">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="10: Switch to android send_mail lane" time="0.002141">
+      <testcase classname="fastlane.lanes" name="4: echo collecting assets" time="0.007956">
         
       </testcase>
     
