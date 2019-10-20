@@ -152,6 +152,7 @@ lane :release_announce do |options|
   message = message + "Email :" + author_email+"\n"
   message = message + "Commit :"+ short_hash +"\n"
   notification(subtitle: "Finished Building", message: message, sound: "Glass") 
+  send_mail(message)
 end
 
 
