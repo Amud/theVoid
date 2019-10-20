@@ -28,13 +28,14 @@ desc "Submit a new bundle to Play store Alpha"
 lane :rollout do |options|
     track = options[:track]
     version = options[:version]
+    percent = options[:percent] ? options[:percent].to_f/100 : default_percent
+
     if track  == "production"
     raise "production full rollout not allowed, use rollout track instead".red
   end  
   default_track = "beta"
   default_percent = 0.05
   gradle(task: "clean bundleRelease")
-  percent = options[:percent] ? options[:percent].to_f/100 : default_percent
   upload_to_play_store(track: track,  rollout: percent.to_s, skip_upload_images: true , skip_upload_screenshots: true)
   collect_assets(version:version)
   release_announce(track:track ,percent:percent , version:version)
@@ -137,7 +138,8 @@ lane :release_announce do |options|
     raise "track/percent/Version, can't be null".red
   end
   branch = git_branch
-  commit = last_git_tag
+  tag = last_git_tag
+  commit = last_git_commit
   author = commit[:author] # author of the commit
   author_email = commit[:author_email] # email of the author of the commit
   short_hash = commit[:abbreviated_commit_hash] # short sha of commit

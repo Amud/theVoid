@@ -5,102 +5,19 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: default_platform" time="0.012427">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.009188">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: gradle" time="11.749253">
+      <testcase classname="fastlane.lanes" name="1: gradle" time="9.874108">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: upload_to_play_store" time="34.230447">
+      <testcase classname="fastlane.lanes" name="2: upload_to_play_store" time="21.028115">
         
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="03: Switch to android collect_assets lane" time="0.001663">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="04: echo collecting assets" time="0.009686">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="05: gradle" time="9.856946">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="06: mkdir ../build/v5.2.12" time="0.011252">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="07: mkdir ../build/v5.2.12/apk" time="0.007797">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="08: mkdir ../build/v5.2.12/assets" time="0.006353">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="09: java -jar ../bundletool-all-0.10.3.jar build-apks  --mode=universal --bundle=/Users/amud/StudioProjects/theVoid/app/build/outputs/bundle/productionRelease/app-production-release.aab  --output=../build/v5.2.12/apk/output.apks --ks=/Users/amud/StudioProjects/theVoid/certificate.jks    --ks-pass=pass:itsAmud --ks-key-alias=upload --key-pass=pass:itsAmud" time="2.419268">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="10: unzip ../build/v5.2.12/apk/output.apks -d ../build/v5.2.12/apk" time="0.017873">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="11: mv ../build/v5.2.12/apk/output.apks ../build/v5.2.12/assets" time="0.006331">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="12: cp ../app/build/outputs/mapping/production/release/mapping.txt ../build/v5.2.12/assets" time="0.007812">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="13: cp /Users/amud/StudioProjects/theVoid/app/build/outputs/bundle/productionRelease/app-production-release.aab ../build/v5.2.12/assets" time="0.007623">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="14: zip -r ../build/v5.2.12/assets.zip ../build/v5.2.12/assets" time="0.194647">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="15: Switch to android upload_asset lane" time="0.002294">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="16: aws s3 cp ../build/v5.2.12/assets.zip s3://stg-capp-cicd/cicd-pipeline/5.2.12.zip --acl public-read" time="10.771783">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="17: Switch to android release_announce lane" time="0.002707">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="18: git_branch" time="0.047229">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="19: last_git_tag" time="0.065144">
+          <failure message="/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/actions/actions_helper.rb:48:in `execute_action'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:235:in `block in execute_action'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:227:in `chdir'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:227:in `execute_action'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:157:in `trigger_action_by_name'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/fast_file.rb:159:in `method_missing'&#10;Fastfile:39:in `block (2 levels) in parsing_binding'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/lane.rb:33:in `call'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:45:in `chdir'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/runner.rb:45:in `execute'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/lane_manager.rb:56:in `cruise_lane'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/command_line_handler.rb:36:in `handle'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/commands_generator.rb:108:in `block (2 levels) in run'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/commander-fastlane-4.4.6/lib/commander/command.rb:178:in `call'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/commander-fastlane-4.4.6/lib/commander/command.rb:153:in `run'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/commander-fastlane-4.4.6/lib/commander/runner.rb:476:in `run_active_command'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:76:in `run!'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/commander-fastlane-4.4.6/lib/commander/delegates.rb:15:in `run!'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/commands_generator.rb:349:in `run'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/commands_generator.rb:41:in `start'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/fastlane/lib/fastlane/cli_tools_distributor.rb:119:in `take_off'&#10;/usr/local/lib/ruby/gems/2.5.0/gems/fastlane-2.134.0/bin/fastlane:23:in `&lt;top (required)&gt;'&#10;/usr/local/bin/fastlane:23:in `load'&#10;/usr/local/bin/fastlane:23:in `&lt;main&gt;'&#10;&#10;Google Api Error: apkNotificationMessageKeyUpgradeVersionConflict: APK specifies a version code that has already been used. - APK specifies a version code that has already been used." />
         
       </testcase>
     
