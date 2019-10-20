@@ -46,12 +46,12 @@ end
 desc "Update rollout of build"
 lane :update_rollout do |options|
   percent = options[:percent].to_f/100 
+  version = options[:version]
   if percent == nil 
     raise "percent, can't be null".red
   end
   upload_to_play_store(track: "rollout", track_promote_to: "rollout", rollout: percent.to_s)
-  branch = git_branch
-  msg = branch +" rollout is update to "+rollout+"on "+track
+  msg = version +" rollout is update to "+rollout+"on "+track
   send_mail(content:msg)
 end
 
@@ -66,9 +66,9 @@ to_track = options[:to_track]
     raise "production full rollout not allowed, use rollout track instead".red
   end
   percent = options[:percent].to_f/100 
-  branch = git_branch
+  version = options[:version]
   upload_to_play_store(track: from_track, track_promote_to: to_track, rollout: percent.to_s , skip_upload_images: true , skip_upload_screenshots: true)
-  msg = branch +" is promoted from "+from_track+" to "+to_track+" at "+rollout+" percent"
+  msg = version +" is promoted from "+from_track+" to "+to_track+" at "+rollout+" percent"
   send_mail(content:msg)
 end
 
@@ -84,7 +84,7 @@ end
 
 
 
-# sample fastlane code_freeze version:5.2.12
+# fastlane code_freeze version:5.2.12
 desc "code freeze"
 lane :code_freeze do |options|
   version = options[:version]
