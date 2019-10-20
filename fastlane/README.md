@@ -21,16 +21,21 @@ or alternatively using `brew cask install fastlane`
 fastlane android rollout
 ```
 Submit a new bundle to Play store Alpha
+### android update_rollout
+```
+fastlane android update_rollout
+```
+Update rollout of build
 ### android promot
 ```
 fastlane android promot
 ```
-Submit a new bundle to Play store Alpha
+Promot a build from beta  to production(rollout)
 ### android assemble
 ```
 fastlane android assemble
 ```
-Submit a new bundle to Play store Alpha
+Build project
 ### android code_freeze
 ```
 fastlane android code_freeze
@@ -40,7 +45,32 @@ code freeze
 ```
 fastlane android notes
 ```
-notes
+release notes
+### android release_announce
+```
+fastlane android release_announce
+```
+release announcement
+### android promot_announce
+```
+fastlane android promot_announce
+```
+build promotion announcement
+### android collect_assets
+```
+fastlane android collect_assets
+```
+collect release assets
+### android send_mail
+```
+fastlane android send_mail
+```
+sending email
+### android upload_asset
+```
+fastlane android upload_asset
+```
+uploading assets on s3
 
 ----
 

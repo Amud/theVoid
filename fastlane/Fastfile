@@ -19,48 +19,66 @@ platform :android do
 
   branch_pattern = "release-"
   develop_branch = "develop"
+  aws_url = "https://stg-capp-cicd.s3-ap-southeast-1.amazonaws.com/cicd-pipeline/"
   
 
 
-
 # sample : fastlane rollout track:beta percent:100
-  desc "Submit a new bundle to Play store Alpha"
-  lane :rollout do |options|
-
-    default_track = "beta"
-    default_percent = 0.05
-
-    gradle(task: "clean bundleRelease")
-    percent = options[:percent] ? options[:percent].to_f/100 : default_percent
-    track = options[:track] ? options[:track] : default_track
-    upload_to_play_store(track: track,  rollout: percent.to_s, skip_upload_images: true , skip_upload_screenshots: true)
-
-  end
-
-
-
-# sample1 : fastlane promot from:beta to:production 
-# sample2 : fastlane promot 
 desc "Submit a new bundle to Play store Alpha"
-  lane :promot do |options|
-    default_track_from = "beta"
-    default_track_to = "production"
-    upload_path = "../mapping"
+lane :rollout do |options|
+    track = options[:track]
+    version = options[:version]
+    if track  == "production"
+    raise "production full rollout not allowed, use rollout track instead".red
+  end  
+  default_track = "beta"
+  default_percent = 0.05
+  gradle(task: "clean bundleRelease")
+  percent = options[:percent] ? options[:percent].to_f/100 : default_percent
+  upload_to_play_store(track: track,  rollout: percent.to_s, skip_upload_images: true , skip_upload_screenshots: true)
+  collect_assets(version:version)
+  release_announce(track:track ,percent :percent ,  version:version)
+end
 
-    track_from = options[:from] 
-    trrack_to =  options[:to] 
 
-    track_from = track_from ? track_from : default_track_from
-    trrack_to = trrack_to ? trrack_to : default_track_to
-    upload_to_play_store(track: track_from, track_promote_to: trrack_to, skip_upload_images: true , skip_upload_screenshots: true, mapping: upload_path)
+
+# sample : fastlane update percent:100
+desc "Update rollout of build"
+lane :update_rollout do |options|
+  percent = options[:percent].to_f/100 
+  if percent == nil 
+    raise "percent, can't be null".red
   end
+  upload_to_play_store(track: "rollout", track_promote_to: "rollout", rollout: percent.to_s)
+  branch = git_branch
+  msg = branch +" rollout is update to "+rollout "on "+track
+  send_mail(content:msg)
+end
+
+
+
+# sample1 : fastlane promot from_track:alpha to_track:beta percent:10
+desc "Promot a build from_track  to_track"
+lane :promot do |options|
+  from_track =  options[:from_track]
+to_track = options[:to_track]
+  if to_track  == "production"
+    raise "production full rollout not allowed, use rollout track instead".red
+  end
+  percent = options[:percent].to_f/100 
+  branch = git_branch
+  upload_to_play_store(track: from_track, track_promote_to: to_track, rollout: percent.to_s , skip_upload_images: true , skip_upload_screenshots: true)
+  msg = branch +" is promoted from "+from_track+" to "+to_track+" at "+rollout+" percent"
+  send_mail(content:msg)
+end
 
 
 
 # sample : fastlane rollout track:beta percent:100
-  desc "Submit a new bundle to Play store Alpha"
+  desc "Build project"
   lane :assemble do 
     gradle(task: "clean bundleRelease")
+    collect_assets(version:"6.2.25")
   end
 
 
@@ -75,46 +93,159 @@ lane :code_freeze do |options|
     end
   release_branch = branch_pattern+""+version  
   ensure_git_status_clean
-
   sh "git checkout "+develop_branch
   sh "git pull --rebase"
   sh "git checkout -b "+release_branch
   sh "git push origin "+release_branch
-  sh "echo release "+release_branch+" is created, please raise your all PR against it"
+  msg = "release "+release_branch+" is created, please raise your all PR against it"
+  send_mail(content:msg)
 end
 
 
 
-#sample : todo
-  desc "notes"
-  lane :notes do |options|
-
-    ensure_git_status_clean
-    version = options[:version]
-    if version == nil 
-      raise "Version can't be null".red
-    end
-
-    branch = branch_pattern+""+version
-
-    sh "git checkout "+branch
-    tag = "v"+version
-
-    
-
-    # sh "git checkout master"
-    notes = changelog_from_git_commits(
-      between: [last_git_tag, "HEAD"], 
-      date_format: "short",
-      pretty: "- (%ae) %s",
-      match_lightweight_tag: false 
-    )
-
-    add_git_tag( message: notes,tag: tag)
-    sh "git push origin "+tag
-
-    sh "echo tag "+tag+" is created at origin"
+#sample : fastlane notes version:05
+desc "release notes"
+lane :notes do |options|
+  ensure_git_status_clean
+  version = options[:version]
+  if version == nil 
+    raise "Version can't be null".red
   end
+  branch = branch_pattern+""+version
+  sh "git checkout "+branch
+  tag = "v"+version
+  notes = changelog_from_git_commits(
+    between: [last_git_tag, "HEAD"], 
+    date_format: "short",
+    pretty: "- (%ae) %s",
+    match_lightweight_tag: false 
+    )
+  add_git_tag( message: notes,tag: tag)
+  sh "git push origin "+tag
+  sh "echo tag "+tag+" is created at origin"
+end
+
+
+
+#sample :fastlane announce track:beta percent:100 version:5.2.27
+desc "release announcement"
+lane :release_announce do |options|
+  track = options[:track]
+  percent = options[:percent]
+  version = options[:version]
+  if version == nil  || track == nil || percent == nil
+    raise "track/percent/Version, can't be null".red
+  end
+  branch = git_branch
+  commit = last_git_tag
+  author = commit[:author] # author of the commit
+  author_email = commit[:author_email] # email of the author of the commit
+  short_hash = commit[:abbreviated_commit_hash] # short sha of commit
+
+  message = "Release :"+version +"\n"
+  message = message +"Track "+track +"\n"
+  message = message + "Percent : "+percent+"\n"
+  message = message + "Branch :"+ branch +"\n"
+  message = message + "Author :"+ author + "\n"
+  message = message + "Email :" + author_email+"\n"
+  message = message + "Commit :"+ short_hash +"\n"
+  notification(subtitle: "Finished Building", message: message, sound: "Glass") 
+end
+
+
+#sample : fastlane promot_announce from_track:beta to_track:prod  version:5.2.27
+desc "build promotion announcement"
+lane :promot_announce do |options|
+  from_track = options[:from_track]
+  to_track = options[:to_track]
+  version = options[:version]
+  if version == nil  || from_track == nil || to_track == nil
+    raise "track/percent/Version, can't be null".red
+  end
+  commit = last_git_commit
+  author = commit[:author] # author of the commit
+  author_email = commit[:author_email] # email of the author of the commit
+  message = "Release :"+version +"\n"
+  message = message +"Promoted from "+from_track +"\n"
+  message = message + "to  : "+to_track+"\n"
+  message = message + "by Author :"+ author + "\n"
+  message = message + "Email :" + author_email+"\n"
+  message = message + "Link : "+s3+"v"+version+".zip"
+  send_mail(message)
+end
+
+
+
+
+#fastlane collect_assets version:6.2.25
+desc "collect release assets"
+lane :collect_assets do |options|
+  sh "echo collecting assets"
+  version = options[:version]
+  if version == nil 
+    raise "track/percent/Version, can't be null".red
+  end
+  gradle(task: "clean bundleRelease")
+  aab_file_path = lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
+  mapping_file_path = "../app/build/outputs/mapping/production/release/mapping.txt"
+  directory_path = "../build/v"+version
+  assests_path = directory_path+"/assets"
+  apk_path = directory_path+"/apk"
+  outputs_path = apk_path+"/output.apks"
+  sh "mkdir "+directory_path
+  sh "mkdir "+apk_path
+  sh "mkdir "+assests_path
+  sh "java -jar ../bundletool-all-0.10.3.jar build-apks  --mode=universal --bundle="+aab_file_path+"  --output="+outputs_path+" --ks=/Users/amud/StudioProjects/theVoid/certificate.jks    --ks-pass=pass:itsAmud --ks-key-alias=upload --key-pass=pass:itsAmud" 
+  sh "unzip "+outputs_path +" -d "+apk_path
+  sh "mv "+ outputs_path+" "+assests_path
+  sh "cp "+mapping_file_path+" "+assests_path
+  sh "cp "+aab_file_path+" "+assests_path
+  zip_path = assests_path+".zip"
+  sh "zip -r "+zip_path +" "+assests_path
+
+  upload_asset(path:zip_path , version:version)
+end
+
+
+
+desc "sending email"
+lane :send_mail do |options| 
+  content = options[:content]
+  require 'uri'
+  require 'net/http'
+  url = URI("http://postman.oyorooms.io/sesEmail/send?priority=high")
+  random = rand(10000)
+  http = Net::HTTP.new(url.host, url.port)
+  request = Net::HTTP::Post.new(url)
+  request["Content-Type"] = 'application/json'
+  request["Postman-Token"] = 'b748c4d0-2556-4cff-b17e-69e52cc5b03a,0908642c-5299-4e66-a68a-460255425a50'
+  request["cache-control"] = 'no-cache,no-cache'
+  request["User-Agent"] = 'PostmanRuntime/7.18.0'
+  request["Accept"] = '*/*'
+  request["Host"] = 'postman.oyorooms.io'
+  request["Accept-Encoding"] = 'gzip, deflate'
+  request["Content-Length"] = '292'
+  request["Connection"] = 'keep-alive'
+  body =  "{\n  \"to\": [\n    \"ankur.mudgal@oyorooms.com\"\n  ],\n  \"from\": \"no-reply@oyorooms.com\",\n  \"contentType\": \"text/html\",\n  \"contentData\": \""+content+"\",\n  \"subject\": \"subject\",\n  \"category\": \"no cat\",\n  \"client\": \"MUNSHI_MAIL_SERVICE\",\n  \"eId\": "+random.to_s+"\n}"
+  sh "echo body"
+  request.body = body
+  response = http.request(request)
+  puts response.read_body
+end
+
+
+desc "uploading assets on s3"
+lane :upload_asset do |options| 
+path = options[:path]
+version = options[:version]
+if path == nil  || version == nil
+    raise "path/version can't be null".red
+  end
+sh "aws s3 cp "+path+" s3://stg-capp-cicd/cicd-pipeline/"+version+".zip --acl public-read"
+end
+
+
+
 
 
 end
