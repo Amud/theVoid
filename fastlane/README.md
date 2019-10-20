@@ -30,7 +30,7 @@ Update rollout of build
 ```
 fastlane android promot
 ```
-Promot a build from beta  to production(rollout)
+Promot a build from_track  to_track
 ### android assemble
 ```
 fastlane android assemble

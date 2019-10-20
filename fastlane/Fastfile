@@ -51,7 +51,7 @@ lane :update_rollout do |options|
   end
   upload_to_play_store(track: "rollout", track_promote_to: "rollout", rollout: percent.to_s)
   branch = git_branch
-  msg = branch +" rollout is update to "+rollout "on "+track
+  msg = branch +" rollout is update to "+rollout+"on "+track
   send_mail(content:msg)
 end
 
