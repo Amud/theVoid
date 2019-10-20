@@ -99,7 +99,8 @@ lane :code_freeze do |options|
   sh "git pull --rebase"
   sh "git checkout -b "+release_branch
   sh "git push origin "+release_branch
-  msg = "release "+release_branch+" is created, please raise your all PR against it"
+  branch_url = git_base_url+"tree/"+release_branch
+  msg = "Relese branch : <a href='"+branch_url+"'>"+release_branch+"</a>"+"<br/> Release branch is created, please raise your all PR against it"
   send_mail(content:msg)
 end
 
